@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
-const SignInForm: React.FC = () => {
+const SignUpForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -14,6 +14,7 @@ const SignInForm: React.FC = () => {
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const validateForm = () => {
     let isValid = true;
@@ -41,6 +42,7 @@ const SignInForm: React.FC = () => {
   };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     e.preventDefault();
     const isValid = validateForm();
 
@@ -55,12 +57,14 @@ const SignInForm: React.FC = () => {
         password,
       });
       console.log("Registered successfully:", response.data);
+      setLoading(false);
       setUsername("");
       setEmail("");
       setPassword("");
       setError("");
     } catch (error) {
-      setError("Something went wrong!");
+      setError("Email already exist!");
+      setLoading(false);
     }
   };
   const togglePassword = () => {
@@ -70,7 +74,6 @@ const SignInForm: React.FC = () => {
   return (
     <div className="max-w-xs mx-auto my-8 p-6 bg-white shadow-md rounded-md">
       <h2 className="text-center text-2xl font-semibold mb-4">Sign Up</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSignIn}>
         <div className="mb-4">
           <label
@@ -109,6 +112,7 @@ const SignInForm: React.FC = () => {
           {emailError && (
             <p className="text-red-500 text-sm mt-1">{emailError}</p>
           )}
+          {error && <p className="text-red-500 text-xs mb-4">{error}</p>}
         </div>
         <div className="mb-4">
           <label
@@ -140,9 +144,13 @@ const SignInForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 w-full rounded-md hover:bg-blue-600 transition-colors duration-300"
+          className="bg-blue-500 text-white w-full px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300"
         >
-          Register
+          {loading ? (
+            <span className="loading loading-dots loading-xs"></span>
+          ) : (
+            "Register"
+          )}
         </button>
         <div className="flex items-center justify-center">
           <p className="mt-1 mr-2 text-xs">Already have an account?</p>
@@ -157,4 +165,4 @@ const SignInForm: React.FC = () => {
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
