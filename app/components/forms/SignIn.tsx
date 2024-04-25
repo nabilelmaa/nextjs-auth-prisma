@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const SignInForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -27,9 +28,16 @@ const SignInForm: React.FC = () => {
       setError("");
     } catch (error) {
       setError("Login failed! Please try again.");
+      setTimeout(() => {
+        setError("");
+      }, 2000);
       setLoading(false);
     }
   };
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="max-w-xs mx-auto my-8 p-6 bg-white shadow-md rounded-md">
       <h2 className="text-2xl font-semibold mb-4 text-center">Sign In</h2>
@@ -47,7 +55,7 @@ const SignInForm: React.FC = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none"
             required
           />
         </div>
@@ -58,14 +66,23 @@ const SignInForm: React.FC = () => {
           >
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
+          <div className="relative focus:border-blue-500">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full pr-10 focus:outline-none"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="absolute inset-y-0 right-0 flex items-center px-3 focus:outline-none"
+            >
+              {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+            </button>
+          </div>
         </div>
         <button
           type="submit"
@@ -85,9 +102,7 @@ const SignInForm: React.FC = () => {
             </button>
           </Link>
         </div>
-        {error && (
-          <p className="mt-2 text-red-500 font-semibold text-center">{error}</p>
-        )}
+        {error && <p className="mt-2 text-red-500 text-center">{error}</p>}
       </form>
     </div>
   );

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const SignInForm: React.FC = () => {
   const [username, setUsername] = useState<string>("");
@@ -12,6 +13,7 @@ const SignInForm: React.FC = () => {
   const [usernameError, setUsernameError] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const validateForm = () => {
     let isValid = true;
@@ -61,6 +63,10 @@ const SignInForm: React.FC = () => {
       setError("Something went wrong!");
     }
   };
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="max-w-xs mx-auto my-8 p-6 bg-white shadow-md rounded-md">
       <h2 className="text-center text-2xl font-semibold mb-4">Sign Up</h2>
@@ -78,7 +84,7 @@ const SignInForm: React.FC = () => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none"
             required
           />
           {usernameError && (
@@ -97,7 +103,7 @@ const SignInForm: React.FC = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none"
             required
           />
           {emailError && (
@@ -111,16 +117,25 @@ const SignInForm: React.FC = () => {
           >
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-            required
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full pr-10 focus:outline-none"
+              required
+            />
+            <button
+              type="button"
+              onClick={togglePassword}
+              className="absolute inset-y-0 right-0 flex items-center px-3 focus:outline-none"
+            >
+              {showPassword ? <IoIosEyeOff /> : <IoIosEye />}
+            </button>
+          </div>
           {passwordError && (
-            <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+            <p className="text-red-500 text-xs mt-1">{passwordError}</p>
           )}
         </div>
         <button
