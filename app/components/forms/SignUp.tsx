@@ -33,6 +33,7 @@ const SignUpForm: React.FC = () => {
       setPasswordError("Password is required");
       isValid = false;
     } else if (password.length < 8) {
+      setLoading(false);
       setPasswordError("Password must be at least 8 characters long");
       isValid = false;
     } else {
@@ -47,6 +48,7 @@ const SignUpForm: React.FC = () => {
     const isValid = validateForm();
 
     if (!isValid) {
+      setLoading(false);
       return;
     }
 
