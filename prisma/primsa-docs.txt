@@ -1,0 +1,5 @@
+# When making changes to your schema push them using:
+npx prisma migrate dev --name <migration-name>
+
+# Install prisma client
+npm install @prisma/client 
