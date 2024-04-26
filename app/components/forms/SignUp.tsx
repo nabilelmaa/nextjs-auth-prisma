@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const SignUpForm: React.FC = () => {
@@ -16,6 +17,8 @@ const SignUpForm: React.FC = () => {
   const [passwordError, setPasswordError] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [toastSuccess, setToastSuccess] = useState<boolean>(false);
+  // const router = useRouter();
 
   const validateForm = () => {
     let isValid = true;
@@ -66,6 +69,11 @@ const SignUpForm: React.FC = () => {
       setEmail("");
       setPassword("");
       setError("");
+      setToastSuccess(true);
+      setTimeout(() => {
+        setToastSuccess(false);
+        // router.push('/sign-in');
+      }, 2000);
     } catch (error) {
       setError("Email already exist!");
       setLoading(false);
@@ -167,6 +175,21 @@ const SignUpForm: React.FC = () => {
             </button>
           </Link>
         </div>
+        {toastSuccess && (
+          <div className="toast toast-end">
+            <div className="alert alert-info bg-white border-green-500 p-2">
+              <div className="flex items-center">
+                <Image
+                  src="/success.png"
+                  alt="success"
+                  width={35}
+                  height={35}
+                />
+                Account created successfully!
+              </div>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );
