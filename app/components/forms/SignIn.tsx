@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 
 const SignInForm: React.FC = () => {
@@ -40,8 +41,10 @@ const SignInForm: React.FC = () => {
 
   return (
     <div className="max-w-xs mx-auto my-8 p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Sign In</h2>
-
+      <div className="flex flex-col justify-center items-center">
+        <Image src="/logo.png" alt="logo" width={150} height={150} />
+        <h2 className="text-xl mb-4 text-center">Loging to your account</h2>
+      </div>
       <form onSubmit={handleSignIn}>
         <div className="mb-4">
           <label
