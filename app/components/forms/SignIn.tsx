@@ -35,7 +35,7 @@ const SignInForm: React.FC = () => {
       setError("Either your email or password is wrong!");
       setTimeout(() => {
         setError("");
-      }, 2000);
+      }, 4000);
       setLoading(false);
     }
   };
@@ -109,7 +109,7 @@ const SignInForm: React.FC = () => {
             </button>
           </Link>
         </div>
-        {error && <p className="mt-2 text-red-500 text-center">{error}</p>}
+        {error && <p className="mt-2 text-red-500 text-center text-xs">{error}</p>}
         {/* {isLoggedIn && <Dashboard props={username} />} */}
       </form>
     </div>
