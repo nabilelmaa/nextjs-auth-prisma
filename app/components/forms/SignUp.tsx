@@ -102,7 +102,7 @@ const SignUpForm: React.FC = () => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:border-blue-300 focus:outline-none"
             required
           />
           {usernameError && (
@@ -121,7 +121,7 @@ const SignUpForm: React.FC = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:outline-none"
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full focus:border-blue-300 focus:outline-none"
             required
           />
           {emailError && (
@@ -142,7 +142,7 @@ const SignUpForm: React.FC = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-md w-full pr-10 focus:outline-none"
+              className="mt-1 p-2 border border-gray-300 rounded-md w-full pr-10 focus:border-blue-300 focus:outline-none"
               required
             />
             <button
@@ -177,7 +177,7 @@ const SignUpForm: React.FC = () => {
         </div>
         {toastSuccess && (
           <div className="toast toast-end">
-            <div className="alert alert-info bg-white border-green-500 p-2">
+            <div className="alert alert-info bg-white border-green-600 p-2">
               <div className="flex items-center">
                 <Image
                   src="/success.png"
