@@ -5,6 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import Dashboard from "@/app/dashboard/page";
 
 const SignInForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -12,6 +13,7 @@ const SignInForm: React.FC = () => {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
@@ -23,12 +25,14 @@ const SignInForm: React.FC = () => {
         password,
       });
       console.log("Sign-in successful:", response.data);
+      const username: string = response.data.user.username;
+      setIsLogged(true);
       setLoading(false);
       setEmail("");
       setPassword("");
       setError("");
     } catch (error) {
-      setError("Login failed! Please try again.");
+      setError("Either your email or password is wrong!");
       setTimeout(() => {
         setError("");
       }, 2000);
@@ -106,6 +110,7 @@ const SignInForm: React.FC = () => {
           </Link>
         </div>
         {error && <p className="mt-2 text-red-500 text-center">{error}</p>}
+        {/* {isLoggedIn && <Dashboard props={username} />} */}
       </form>
     </div>
   );
