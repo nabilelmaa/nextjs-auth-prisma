@@ -125,7 +125,7 @@ const SignUpForm: React.FC = () => {
             required
           />
           {emailError && (
-            <p className="text-red-500 text-sm mt-1">{emailError}</p>
+            <p className="text-red-500 text-xs mt-1">{emailError}</p>
           )}
           {error && <p className="text-red-500 text-xs mb-4">{error}</p>}
         </div>
